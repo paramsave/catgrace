@@ -35,18 +35,20 @@ class CreateTables extends Migration
 
         Schema::create('questions', function (Blueprint $table) {
             $table->id()->unsigned();
-            $table->enum('type', ['feed', 'grooming', 'review'])->comment('질문타입');
+            $table->enum('type', ['feed', 'grooming', 'review'])->default('feed')->comment('질문타입');
             $table->string('title')->comment('제목');
             $table->text('content')->comment('내용');
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+
+            $table->timestamps();
         });
 
         Schema::create('answers', function (Blueprint $table) {
             $table->id()->unsigned();
             $table->text('content')->comment('내용');
-            $table->enum('choose', ['Y', 'N']);
+            $table->enum('choose', ['Y', 'N'])->default('N');
 
             $table->unsignedBigInteger('question_id');
             $table->foreign('question_id')->references('id')->on('questions');
@@ -54,6 +56,7 @@ class CreateTables extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
 
+            $table->timestamps();
         });
     }
 
