@@ -35,6 +35,17 @@ class AnswerService
     }
 
     /**
+     * 해당 고양이의 모든 답변 가져오기
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function getAnswersByUserId($id)
+    {
+        return Answer::where('user_id', $id)->get();
+    }
+
+    /**
      * 답변 생성
      *
      * @param $request

@@ -29,10 +29,10 @@ Route::get('question/{id}/answer', [QuestionController::class, 'showAll']);
 Route::middleware('auth:api')->group(function () {
     // 사용자 정보 가져오기
     Route::get('cat/{id}', [UserController::class, 'show']);
-//    // 사용자의 모든 질문 가져오기
-//    Route::get('cat/{id}/questions', [UserController::class, 'showAllQuestions']);
-//    // 사용자의 모든 답변 가져오기
-//    Route::get('cat/{id}/answers', [UserController::class, 'showAllAnswers']);
+    // 사용자의 모든 질문 가져오기
+    Route::get('cat/{id}/questions', [UserController::class, 'showAllQuestions']);
+    // 사용자의 모든 답변 가져오기
+    Route::get('cat/{id}/answers', [UserController::class, 'showAllAnswers']);
     // 질문 등록
     Route::post('question', [QuestionController::class, 'create']);
     // 질문 수정
