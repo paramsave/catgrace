@@ -26,12 +26,6 @@ class QuestionController extends Controller
     {
         $this->questionService = $questionService;
         $this->answerService = $answerService;
-
-        if(auth()->user() !== null && auth()->user()->type === 'mentee') {
-            $this->middleware('auth:api')->except(['create', 'update', 'delete']);
-        } else {
-            $this->middleware('auth:api');
-        }
     }
 
     /**
@@ -53,10 +47,15 @@ class QuestionController extends Controller
      */
     public function showAll($id)
     {
-        $question = $this->questionService->getQuestionById($id);
-        $answer = $this->answerService->getAnswersByQuestionId($id);
+        $question = $this->questionService->getQuestionWithUser($id);
+        $answers = $question->answers;
+        $answers = $this->answerService->getAnswersWithUser($answers);
 
-        return response()->json(['success' => true, 'data' => ['question' => $question, 'answer' => $answer]]);
+        return response()->json(['success' => true,
+            'data' => [
+                'question' => $question,
+            ]
+        ]);
     }
 
     /**

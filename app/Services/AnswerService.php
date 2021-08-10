@@ -46,6 +46,24 @@ class AnswerService
     }
 
     /**
+     * 답변마다 해당 유저 가져오기
+     *
+     * @param $answers
+     * @return mixed
+     */
+    public function getAnswersWithUser($answers)
+    {
+        foreach($answers as $answer)
+        {
+            $answer->user->age = null;
+            $answer->user->kind = $answer->user->kind->name;
+            $answer->user->color = $answer->user->color->name;
+        }
+
+        return $answers;
+    }
+
+    /**
      * 답변 생성
      *
      * @param $request

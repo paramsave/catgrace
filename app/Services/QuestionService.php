@@ -43,6 +43,23 @@ class QuestionService extends Service
     }
 
     /**
+     * 질문과 질문자 가져오기
+     *
+     * @param $id
+     * @return Question
+     */
+    public function getQuestionWithUser($id)
+    {
+        $question = $this->getQuestionById($id);
+
+        $question->user->kind = $question->user->kind->name;
+        $question->user->color = $question->user->color->name;
+        $question->user->age = null;
+
+        return $question;
+    }
+
+    /**
      * 질문 등록하기
      *
      * @param $request
