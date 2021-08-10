@@ -34,9 +34,10 @@ class QuestionController extends Controller
      */
     public function show($id)
     {
-        $question = $this->questionService->getQuestionById($id);
+        $question = $this->questionService->getQuestionWithUser($id);
+        $question->content = substr($question->content, 0, 20);
 
-        return response()->json(['success' => true, 'data' => $question->toArray()]);
+        return response()->json(['success' => true, 'data' => $question]);
     }
 
     /**

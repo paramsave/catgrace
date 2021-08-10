@@ -17,7 +17,18 @@ class QuestionService extends Service
      */
     public function getQuestionById($id)
     {
-        return Question::findOrFail($id);
+        return $this->getQuestionByIdQuery($id)->first();
+    }
+
+    /**
+     * 아이디를 통해 질문 쿼리빌더로 가져오기
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function getQuestionByIdQuery($id)
+    {
+        return Question::where('id', $id);
     }
 
     /**
@@ -28,7 +39,7 @@ class QuestionService extends Service
      */
     public function getQuestionByIdWithAnswer($id)
     {
-        return $this->getQuestionById($id)->answers()->get();
+        return $this->getQuestionById($id)->with('answer')->get();
     }
 
     /**
